@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>super聊天室</title>
+    <title>super趣聊室</title>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -14,7 +14,9 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">super聊天室</a>
+            <a class="navbar-brand" href="#" style="display: flex;">
+                <img src="img/a.png" style="height: 28px;margin-right: 10px;">
+                super趣聊室</a>
         </div>
     </div>
 </nav>
@@ -23,13 +25,14 @@
     <div class="chat">
         <div class="item" v-for="l in list">
             <div class="name">
-                {{getName(l.value)}} &nbsp; <span style="color: #ff9800" v-html="getDate(l.value)"></span>
+                <span v-html="getName(l.value)"></span> &nbsp; <span style="color: #ff9800" v-html="getDate(l.value)"></span>
             </div>
             <div class="text" v-html="getCont(l.value)">
             </div>
         </div>
     </div>
     <div class="inp">
+        <img src="img/write.png" style="height: 35px;margin-right: 15px">
         <div class="time">
             <input type="text" id="name" placeholder="昵称" style="width: 120px">&nbsp;&nbsp;
         </div>
