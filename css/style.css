@@ -1,0 +1,173 @@
+.navbar-inverse {
+    background: #ff9800;
+    border-color: #ff9800;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #fff;
+}
+
+body {
+    background: #f9f9f9;
+}
+
+.main {
+    margin-top: 80px;
+}
+
+.footer {
+    width: 100%;
+    height: 52px;
+    line-height: 52px;
+    text-align: center;
+}
+
+.main > .title {
+    font-size: 22px;
+}
+
+.main > .title img {
+    height: 50px;
+}
+
+.main .tip {
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+
+.item-wrap {
+}
+
+.item-wrap .item {
+    border: 1px solid #eee;
+    box-shadow: 0 2px 4px 1px #eee;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+}
+
+.item-wrap .item .icon img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 1px solid #eee;
+    padding: 3px;
+}
+
+.item-wrap .item .content {
+    height: 100%;
+}
+
+.item-wrap .item .content .name {
+}
+
+.item-wrap .item .content .text {
+
+}
+
+.title2 {
+    margin-bottom: 30px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.title2 img {
+    width: 42px;
+    margin-right: 15px;
+}
+
+.inp {
+    font-size: 15px;
+    display: flex;
+    padding: 20px 0;
+}
+
+.inp .title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.inp .title img {
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+}
+
+.inp .content {
+    display: flex;
+}
+
+.inp .time {
+    margin-bottom: 15px;
+}
+
+.inp .time input {
+    height: 35px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0px 10px;
+}
+.inp .time select {
+    height: 35px;
+    margin-left: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0px 10px;
+}
+
+.inp .content textarea {
+    margin-left: 15px;
+    width: 500px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#push {
+    width: 89px;
+    height: 35px;
+    color: #333;
+    line-height: 35px;
+    border: 1px solid #ff9800;
+    border-radius: 4px;
+    text-align: center;
+    margin-left: 60px;
+    cursor: pointer;
+    background: #ff9800;
+    color: #fff;
+}
+
+.name .nc{
+    font-weight: bold;
+}
+
+.name .sc{
+    font-weight: bold;
+}
+
+/*------------*/
+.chat{
+    height: 600px;
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.chat .item{
+    padding: 5px 15px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 4px 1px #eee;
+    margin-bottom: 5px;
+}
+.chat .item .name{
+    padding-bottom: 5px;
+}

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>super聊天室</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">super聊天室</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container main" id="app">
+    <div class="chat">
+        <div class="item" v-for="l in list">
+            <div class="name">
+                {{getName(l.value)}} &nbsp; <span style="color: #ff9800" v-html="getDate(l.value)"></span>
+            </div>
+            <div class="text" v-html="getCont(l.value)">
+            </div>
+        </div>
+    </div>
+    <div class="inp">
+        <div class="time">
+            <input type="text" id="name" placeholder="昵称" style="width: 120px">&nbsp;&nbsp;
+        </div>
+        <div class="time">
+            <input type="text" id="content" placeholder="请输入..." style="width:300px;">
+        </div>
+
+        <div id="push" onclick="push()">
+            发送
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>Copyright &copy; 2018.基于新一代区块链公链
+        <a href="https://nebulas.io/" target="_blank">NAS</a>
+    </p>
+</div>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/layer/layer.js"></script>
+<script src="js/nebPay.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+
+    var NebPay = require("nebpay");
+    var nebPay = new NebPay();
+
+    //检查扩展是否已安装
+    //如果安装了扩展，var“webExtensionWallet”将被注入到web页面中
+    if (typeof(webExtensionWallet) === "undefined") {
+        //alert ("扩展钱包未安装，请先安装.")
+        $("#noExtension").show();
+    }
+
+    var dappAddress = "n1iJLgjAmKhvCz4YjUnSSnqAP2X1LW5gS1u";
+    var initKey = '';
+    setInterval(function () {
+        getChat(0);
+    }, 10000);
+    getChat(0);
+
+    // 初始化
+    function getChat(page) {
+        var to = dappAddress;
+        var value = "0";
+        var callFunction = "forEach";
+        var callArgs = "[1000," + page * 10 + "]";
+        nebPay.simulateCall(to, value, callFunction, callArgs, {
+            listener: cbSearch
+        });
+    }
+
+    //return of search,
+    function cbSearch(resp) {
+        $('#app').show();
+        if (!resp.result) return;
+        var result = eval(JSON.parse(resp.result));
+        if (result !== 'null') {
+            Vue.set(app, 'list', result)
+        }
+    }
+
+    // 提交
+    function push() {
+        var name = $('#name').val();
+        var content = $('#content').val();
+        if (name == '') {
+            layer.msg('昵称不能为空');
+            return;
+        } else if (content == '') {
+            layer.msg('内容不能为空');
+            return;
+        }
+
+        initKey = 'chat:' + new Date().getTime() + RndNum(3);
+        var to = dappAddress;
+        var value = "0";
+        var callFunction = "set"
+        var callArgs = [];
+        callArgs.push(initKey);
+        callArgs.push(name + "|-|" + new Date().format("yyyy-MM-dd hh:mm:ss") + '|-|' + content);
+        nebPay.call(to, value, callFunction, JSON.stringify(callArgs), {
+            listener: cbPush
+        });
+    }
+
+    function cbPush(resp) {
+        console.log("response of push: " + resp);
+        $("#word").val('')
+    }
+
+    //产生随机数函数
+    function RndNum(n) {
+        var rnd = "";
+        for (var i = 0; i < n; i++)
+            rnd += Math.floor(Math.random() * 10);
+        return rnd;
+    }
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            list: []
+        },
+        methods: {
+            getName: function (text) {
+                if (text) {
+                    return text.split('|-|')[0];
+                } else {
+                    return ' ';
+                }
+
+            },
+            getDate: function (text) {
+                if (text) {
+                    return text.split('|-|')[1];
+                } else {
+                    return ' ';
+                }
+            },
+            getCont: function (text) {
+                if (text) {
+                    return text.split('|-|')[2];
+                } else {
+                    return ' ';
+                }
+            }
+        }
+    })
+
+    Date.prototype.format = function (format) {
+        var args = {
+            "M+": this.getMonth() + 1,
+            "d+": this.getDate(),
+            "h+": this.getHours(),
+            "m+": this.getMinutes(),
+            "s+": this.getSeconds(),
+            "q+": Math.floor((this.getMonth() + 3) / 3),  //quarter
+            "S": this.getMilliseconds()
+        };
+        if (/(y+)/.test(format))
+            format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var i in args) {
+            var n = args[i];
+            if (new RegExp("(" + i + ")").test(format))
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? n : ("00" + n).substr(("" + n).length));
+        }
+        return format;
+    };
+
+</script>
+
+</body>
+
+</html>
