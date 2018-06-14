@@ -12,9 +12,10 @@ Chat.prototype = {
     },
 
     set: function (key, value) {
+        var from = Blockchain.transaction.from;
         var index = this.size;
-        this.arrayMap.set(index, key);
-        this.dataMap.set(key, value);
+        this.arrayMap.set(index, from+key);
+        this.dataMap.set(from+key, value);
         this.size += 1;
     },
 

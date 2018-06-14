@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>super趣聊室</title>
+    <title>趣趣聊</title>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -16,7 +16,7 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="#" style="display: flex;">
                 <img src="img/a.png" style="height: 28px;margin-right: 10px;">
-                super趣聊室</a>
+                趣趣聊</a>
         </div>
     </div>
 </nav>
@@ -26,6 +26,8 @@
         <div class="item" v-for="l in list">
             <div class="name">
                 <span v-html="getName(l.value)"></span> &nbsp; <span style="color: #ff9800" v-html="getDate(l.value)"></span>
+
+                <span class="qbaddr" v-html="getKey(l.key)"></span>
             </div>
             <div class="text" v-html="getCont(l.value)">
             </div>
@@ -68,7 +70,7 @@
         $("#noExtension").show();
     }
 
-    var dappAddress = "n1iJLgjAmKhvCz4YjUnSSnqAP2X1LW5gS1u";
+    var dappAddress = "n1i3TJa6SUqfxgb6JFWnH5tisaoFGrtrkHX";
     var initKey = '';
     setInterval(function () {
         getChat(0);
@@ -108,7 +110,7 @@
             return;
         }
 
-        initKey = 'chat:' + new Date().getTime() + RndNum(3);
+        initKey = RndNum(4);
         var to = dappAddress;
         var value = "0";
         var callFunction = "set"
@@ -157,6 +159,14 @@
             getCont: function (text) {
                 if (text) {
                     return text.split('|-|')[2];
+                } else {
+                    return ' ';
+                }
+            },
+            getKey: function (text) {
+                if (text) {
+                    var len = text.length;
+                    return text.substring(0, len - 4);
                 } else {
                     return ' ';
                 }

@@ -172,3 +172,9 @@ body {
 .chat .item .name{
     padding-bottom: 5px;
 }
+
+.qbaddr{
+    float: right;
+    font-size: 12px;
+    color: #bbb;
+}
